@@ -1,13 +1,15 @@
 <script setup>
     import { ref } from 'vue'
-    import {createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
-    import { auth } from '../firebase.js'
     import { useRouter } from 'vue-router'
+    import { useAuth } from "@/composables/useAuth.js";
 
     const isLogin = ref(true)
     const email = ref('')
     const password = ref('')
+    const username = ref('')
     const router = useRouter()
+
+    const {login, register, signInWithGoogle} = useAuth()
 
     const toggleAuth = () =>{
         isLogin.value = !isLogin.value
@@ -16,9 +18,9 @@
     const handleSubmit = async () =>{
         try {
             if (isLogin.value) {
-                await signInWithEmailAndPassword(auth , email.value, password.value)
+                await login(email.value, password.value)
             }else{
-                await createUserWithEmailAndPassword(auth , email.value, password.value)
+                await register(email.value, password.value, username.value)
             }
             router.push('/');
         } catch (error) {
@@ -32,6 +34,11 @@
         <h1>{{ isLogin ? "Iniciar sesión" : "Registro" }}</h1>
         <form @submit.prevent="handleSubmit">
         <div class="inputs">
+            <div v-if="!isLogin">
+                <label for="username">Username</label>
+                <input id="username" v-model="username" type="text" required>
+            </div>
+
             <div>
                 <label for="email">Email</label>
                 <input id="email" v-model="email" type="email" required>
@@ -41,6 +48,8 @@
                 <label for="password">Password</label>
                 <input id="password" v-model="password" type="password" required>
             </div>
+
+            <button @click="signInWithGoogle">Iniciar sesión con Google</button>
         </div>
         <button type="submit">{{ isLogin ? "Iniciar sesión" : "Registrarse" }}</button>
         </form>

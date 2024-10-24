@@ -7,10 +7,13 @@ const type = ref('ingresos')
 const amount = ref(0)
 const db = getDatabase();
 
+console.log(auth.currentUser.uid);
+
+
 const addTransaction = async() =>{
     const user = auth.currentUser
     if (user && amount.value != null) {
-        const transactionsRef = dbRef(db, `transactions`)
+        const transactionsRef = dbRef(db, `transactions/${user.uid}`)
 
     const newTransaction = {
         type: type.value,
