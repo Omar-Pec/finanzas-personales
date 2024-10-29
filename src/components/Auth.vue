@@ -9,7 +9,7 @@
     const username = ref('')
     const router = useRouter()
 
-    const {login, register, signInWithGoogle} = useAuth()
+    const {login, register, signInWithGoogle, InvalidLogin, InvalidRegister} = useAuth()
 
     const toggleAuth = () =>{
         isLogin.value = !isLogin.value
@@ -30,49 +30,77 @@
 </script>
 
 <template>
-    <div>
+
+<div class="d-flex justify-content-center">
+    <div class="bg-light bg-gradient p-5 bg-opacity-75 rounded-3">
         <h1>{{ isLogin ? "Iniciar sesión" : "Registro" }}</h1>
-        <form @submit.prevent="handleSubmit">
+        <form @submit.prevent="handleSubmit" class="px-5 py-4 d-flex flex-column " >
         <div class="inputs">
-            <div v-if="!isLogin">
-                <label for="username">Username</label>
-                <input id="username" v-model="username" type="text" required>
+            <div v-if="!isLogin" class="input-group mb-3">
+                <input id="username" v-model="username" type="text" class="form-control" placeholder="Nombre de usuario" required>
             </div>
 
-            <div>
-                <label for="email">Email</label>
-                <input id="email" v-model="email" type="email" required>
+            <div class="input-group mb-3">
+                <input id="email" v-model="email" type="email" class="form-control" placeholder="Email" required>
             </div>
 
-            <div>
-                <label for="password">Password</label>
-                <input id="password" v-model="password" type="password" required>
+            <div class="input-group mb-3">
+                <input id="password" v-model="password" type="password" class="form-control" placeholder="Contraseña" required>
             </div>
 
-            <button @click="signInWithGoogle">Iniciar sesión con Google</button>
+            <p v-if="InvalidLogin" class="m-0 error">correo o contraseña incorrecta</p>
+            
+            <p v-if="InvalidRegister" class="m-0 error">ingrese los datos correctamente</p>
         </div>
-        <button type="submit">{{ isLogin ? "Iniciar sesión" : "Registrarse" }}</button>
+        <button type="submit" class="btn btn-primary mb-4 button-login-register">{{ isLogin ? "Iniciar sesión" : "Registrarse" }}</button>
+
+        <div @click="signInWithGoogle" class="btn pe-3 d-flex align-items-center button-google">
+                <img src="../imgs/google-icon.png" alt="google-icon" width="30px" class="me-3 img-fluid">
+                Iniciar sesión con Google
+        </div>
+
         </form>
-        <p @click="toggleAuth" style="cursor: pointer;">{{ isLogin ? "Aun no tienes una cuenta?" : "Ya tienes cuenta? Iniciar sesión"}}</p>
+        <p @click="toggleAuth" style="cursor: pointer;">{{ isLogin ? "¿No tienes una cuenta? Registrate" : "¿Ya tienes cuenta? Iniciar sesión"}}</p>
     </div>
+</div>
 </template>
 
 <style scoped>
+*{
+    margin: 0px;
+    padding: 0px;
+    color: black;
+}
 .inputs {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding-left: 8rem;
-    padding-right: 8rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 input{
-    width: 100%;
     padding: 0.6rem;
 }
 label{
     display: block;
     text-align: left;
+}
+.button-google{
+    background-color: #4267b2;
+    padding: 6px;
+    color: white;
+}
+.button-google:hover{
+    background-color: #4267b2e9;
+}
+.button-login-register{
+    padding: 6px;
+    background-color: #0171d3;
+    color: white;
+}
+.button-login-register:hover{
+    background-color: #0171d3e4;
+}
+.error{
+    color: red;
 }
 </style>

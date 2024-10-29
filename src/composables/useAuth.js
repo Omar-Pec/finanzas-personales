@@ -4,6 +4,8 @@ import router from "@/router";
 
 const user = ref(null)
 const auth = getAuth()
+const InvalidLogin = ref()
+const InvalidRegister = ref()
 
 const googleAuthProvider = new GoogleAuthProvider()
 
@@ -17,8 +19,10 @@ export function useAuth(){
     const login = async(email, password) => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
+            InvalidLogin.value = false;
         } catch (error) {
             console.error("Error al iniciar sesión: ", error)
+            InvalidLogin.value = true;
         }
         router.push('/')
     }
@@ -28,7 +32,7 @@ export function useAuth(){
             const result = await signInWithPopup(auth, googleAuthProvider)
             if (result) {
                 router.push('/')
-            } 
+            }
         } catch (error) {
             console.error("Error de autenticación con google: ", error);
             
@@ -41,8 +45,10 @@ export function useAuth(){
                 await updateProfile(userCredential.user, {
                     displayName: username
                 })
+                InvalidRegister.value = false;
         } catch (error) {
             console.error("Hubo un error al crear la cuenta", error);
+            InvalidRegister = true;
         }
         router.push('/')
     }
@@ -57,7 +63,9 @@ export function useAuth(){
         }
     }
     return{
-        user, 
+        user,
+        InvalidLogin,
+        InvalidRegister,
         login,
         logout,
         register,
