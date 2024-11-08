@@ -48,7 +48,7 @@ export function useAuth(){
                 InvalidRegister.value = false;
         } catch (error) {
             console.error("Hubo un error al crear la cuenta", error);
-            InvalidRegister = true;
+            InvalidRegister.value = true;
         }
         router.push('/')
     }

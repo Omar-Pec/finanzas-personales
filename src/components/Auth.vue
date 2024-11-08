@@ -13,6 +13,8 @@
 
     const toggleAuth = () =>{
         isLogin.value = !isLogin.value
+        InvalidRegister.value = false
+        InvalidLogin.value = false
     }
 
     const handleSubmit = async () =>{
@@ -48,9 +50,9 @@
                 <input id="password" v-model="password" type="password" class="form-control" placeholder="Contraseña" required>
             </div>
 
-            <p v-if="InvalidLogin" class="m-0 error">correo o contraseña incorrecta</p>
+            <p v-if="InvalidLogin" class="m-0 error">Correo o contraseña incorrecta</p>
             
-            <p v-if="InvalidRegister" class="m-0 error">ingrese los datos correctamente</p>
+            <p v-if="InvalidRegister" class="m-0 error">Corre electrónico ya en uso</p>
         </div>
         <button type="submit" class="btn btn-primary mb-4 button-login-register">{{ isLogin ? "Iniciar sesión" : "Registrarse" }}</button>
 

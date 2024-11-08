@@ -30,7 +30,9 @@ const addTransaction = async() =>{
 </script>
 
 <template>
-    <h1>Añadir transacción</h1>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="contenedor text-dark rounded-4 py-4">
+        <h1 class="title" >Añadir transacción</h1>
     <form @submit.prevent="addTransaction">
     <div>
         <label style="margin-right: 5px;">Tipo de transacción</label>
@@ -46,4 +48,30 @@ const addTransaction = async() =>{
     </div>
     <button type="submit">Agregar transacción</button>
     </form>
+    </div>
+    </div>
+  
+    
 </template>
+
+<style scoped>
+.contenedor{
+  width: 50%;
+  height: 85%;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 5px 5px #dedede;
+  margin-bottom: 10px;
+}
+
+.title{
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 15px;
+  font-size: 30px;
+}
+* {
+  font-family: "Inter", sans-serif;
+  letter-spacing: 1px;
+}
+</style>

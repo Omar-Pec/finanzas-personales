@@ -12,8 +12,10 @@ const props = defineProps({
 </script>
 
 <template>
-    <h1>Soy el BarChart</h1>
-    <div v-if="chartData && chartData.labels.length > 0" >
-        <Bar :data="chartData"/>
+     <div v-if="chartData && chartData.labels.length > 0" >
+    <Bar :data="chartData" />
     </div>
 </template>
+
+<style scoped>
+</style>
