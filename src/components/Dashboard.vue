@@ -65,21 +65,21 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="d-flex justify-content-center align-items-center">
-      <div class="text-dark rounded-4 contenedor">
-        <h2 v-if="user" class="mt-4 title">Bienvenido al dashboard {{ user.displayName }}</h2>
-        <div v-if="chartData && chartData.labels.length > 0">
-          <BarChart :chartData="chartData" class="mx-4 mb-3"/>
-        </div>
-        <div v-else>
-          <h3>No hay datos ingresados para mostrar en el dashboard</h3>
-        </div>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="text-dark rounded-4 contenedor">
+      <h2 v-if="user" class="mt-4 title">Bienvenido al dashboard {{ user.displayName }}</h2>
+      <div v-if="chartData && chartData.labels.length > 0">
+        <BarChart :chartData="chartData" class="mx-4 mb-3" />
+      </div>
+      <div v-else>
+        <h3>No hay datos ingresados para mostrar en el dashboard</h3>
       </div>
     </div>
-  </template>
-  
-  <style scoped>
-.contenedor{
+  </div>
+</template>
+
+<style scoped>
+.contenedor {
   width: 90%;
   height: 85%;
   margin: 0 auto;
@@ -87,15 +87,16 @@ onMounted(() => {
   box-shadow: 5px 5px #dedede;
   margin-bottom: 10px;
 }
-.title{
+
+.title {
   font-weight: 800;
   text-transform: uppercase;
   margin: 15px;
   font-size: 30px;
 }
+
 * {
   font-family: "Inter", sans-serif;
   letter-spacing: 1px;
 }
-  </style>
-  
+</style>

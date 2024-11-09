@@ -12,10 +12,9 @@ const props = defineProps({
 </script>
 
 <template>
-     <div v-if="chartData && chartData.labels.length > 0" >
-    <Bar :data="chartData" />
+    <div v-if="chartData && chartData.labels.length > 0">
+        <Bar :data="chartData" />
     </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
